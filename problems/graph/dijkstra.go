@@ -6,6 +6,7 @@ import (
 	dsgraph "go_dsa/ds/graph"
 )
 
+// Time -- O(v * v)
 func Dijkstra_Shortest_Path(g dsgraph.Graph, src int) map[int]int {
 	vertices := g.Vertices()
 	v := len(vertices)
