@@ -32,7 +32,7 @@ func NewAdjacencyListGraph(t GraphType) Graph {
 	return g
 }
 
-func (g *AdjacencyListGraph) addVertex(v int) {
+func (g *AdjacencyListGraph) AddVertex(v int) {
 	if _, exists := g.adj[v]; !exists {
 		g.adj[v] = []Edge{}
 	}
@@ -46,8 +46,8 @@ func (g *AdjacencyListGraph) AddEdge(u, v int, w ...int) {
 		}
 		weight = w[0]
 	}
-	g.addVertex(u)
-	g.addVertex(v)
+	g.AddVertex(u)
+	g.AddVertex(v)
 
 	g.adj[u] = append(g.adj[u], Edge{To: v, Weight: weight})
 

@@ -83,3 +83,7 @@ func (g *AdjacencyMatrixGraph) Vertices() []int {
 	}
 	return vs
 }
+
+func (g *AdjacencyMatrixGraph) AddVertex(v int) {
+
+}

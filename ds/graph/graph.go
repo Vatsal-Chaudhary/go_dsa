@@ -15,6 +15,7 @@ type Edge struct {
 }
 
 type Graph interface {
+	AddVertex(v int)
 	AddEdge(u, v int, w ...int)
 	Neighbours(v int) []Edge
 	Vertices() []int
