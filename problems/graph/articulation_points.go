@@ -55,11 +55,18 @@ func ArticulationPoints(g dsgraph.Graph) []int {
 	childCount := make(map[int]int)
 	timer := 0
 	result := []int{}
+	ap := make(map[int]bool)
 
 	for _, v := range g.Vertices() {
 		if !visited[v] {
 			parent[v] = -1
-			dfs_ap(g, v, visited, disc, low, parent, &timer, &result, childCount)
+			dfs_ap(g, v, visited, disc, low, parent, &timer, ap, childCount)
+		}
+	}
+
+	for v, isAP := range ap {
+		if isAP {
+			result = append(result, v)
 		}
 	}
 
@@ -74,7 +81,7 @@ func dfs_ap(
 	low map[int]int,
 	parent map[int]int,
 	timer *int,
-	result *[]int,
+	ap map[int]bool,
 	childCount map[int]int,
 ) {
 	visited[u] = true
@@ -90,16 +97,16 @@ func dfs_ap(
 			parent[v] = u
 			childCount[u]++
 
-			dfs_ap(g, v, visited, disc, low, parent, timer, result, childCount)
+			dfs_ap(g, v, visited, disc, low, parent, timer, ap, childCount)
 
-			low[u] = min(low[u], v)
+			low[u] = min(low[u], low[v])
 
 			if parent[u] == -1 && childCount[u] >= 2 {
-				*result = append(*result, u)
+				ap[u] = true
 			}
 
 			if parent[u] != -1 && low[v] >= disc[u] {
-				*result = append(*result, u)
+				ap[u] = true
 			}
 
 		} else if v != parent[u] {
